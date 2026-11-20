@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#3b1428" />
+  <title>Happy Anniversary, My Love ❤️</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+    :root {
+      --wine: #42172e;
+      --rose: #a83d62;
+      --pink: #f5a9bd;
+      --blush: #ffe1e8;
+      --cream: #fff7f1;
+      --ink: #57263b;
+      --glass: rgba(255, 242, 246, .11);
+      --line: rgba(255, 226, 235, .28);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      background: radial-gradient(circle at 50% 15%, #873653 0%, #4a1b35 42%, #210d20 100%);
+    }
+    button { font: inherit; }
+    button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+
+    .stars, .float-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .stars {
+      opacity: .65;
+      background-image:
+        radial-gradient(2px 2px at 12% 20%, #fff 98%, transparent),
+        radial-gradient(1.5px 1.5px at 75% 15%, #ffe0e9 98%, transparent),
+        radial-gradient(2px 2px at 88% 62%, #fff 98%, transparent),
+        radial-gradient(1.5px 1.5px at 25% 75%, #ffd5e1 98%, transparent),
+        radial-gradient(1px 1px at 55% 43%, #fff 98%, transparent);
+      background-size: 360px 320px;
+      animation: twinkle 5s ease-in-out infinite alternate;
+    }
+    @keyframes twinkle { from { opacity: .25; } to { opacity: .85; } }
+
+    .intro {
+      position: fixed;
+      z-index: 20;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+      background: radial-gradient(circle at center, #843751, #351329 72%);
+      transition: opacity .8s ease, visibility .8s ease;
+    }
+    .intro.hide { opacity: 0; visibility: hidden; }
+    .intro-card { max-width: 520px; animation: rise-in 1s both; }
+    .intro-kicker { color: #ffd4df; letter-spacing: .28em; font-size: .72rem; text-transform: uppercase; }
+    .intro h1 {
+      margin: 14px 0;
+      font: 600 clamp(2.5rem, 9vw, 4.8rem)/1.05 'Playfair Display', Georgia, serif;
+      color: #fff0f4;
+      text-shadow: 0 0 28px #ff8eae77;
+    }
+    .intro p { color: #f8dbe4; line-height: 1.8; margin: 0 auto 25px; }
+
+    .btn {
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 999px;
+      padding: 13px 24px;
+      color: #551d37;
+      background: linear-gradient(135deg, #fff0f4, #f6b5c8);
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 28px #16071155;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.025); box-shadow: 0 12px 34px #16071177; }
+    .btn.secondary { background: rgba(255,255,255,.1); color: #fff0f4; box-shadow: none; }
+
+    main { position: relative; z-index: 1; opacity: 0; transition: opacity 1s ease; }
+    main.ready { opacity: 1; }
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 68px 20px 50px;
+      text-align: center;
+    }
+    .date-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 15px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.07);
+      border-radius: 99px;
+      color: #ffd9e3;
+      letter-spacing: .16em;
+      font-size: .72rem;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .hero h2 {
+      margin: 22px 0 10px;
+      color: #fff0f4;
+      font: 600 clamp(2.6rem, 9vw, 6rem)/1.06 'Playfair Display', Georgia, serif;
+      text-shadow: 0 0 28px #ff8eae55;
+    }
+    .hero h2 span { color: #ffadc2; }
+    .tagline { margin: 0; color: #f9dce5; font-size: clamp(.98rem, 2.5vw, 1.15rem); }
+
+    /* Original CSS-drawn bear duo: no photos or external character artwork. */
+    .bear-scene {
+      width: min(440px, 94vw);
+      height: 270px;
+      position: relative;
+      margin: 24px auto 15px;
+      filter: drop-shadow(0 18px 18px #19081555);
+    }
+    .bear {
+      --fur: #fff8ef;
+      --muzzle: #f2dfd4;
+      position: absolute;
+      bottom: 22px;
+      width: 150px;
+      height: 165px;
+      border-radius: 48% 48% 42% 42%;
+      background: var(--fur);
+      box-shadow: inset -9px -9px 0 rgba(120,70,70,.07), 0 8px 0 rgba(30,8,20,.08);
+      animation: bear-bob 3.4s ease-in-out infinite;
+    }
+    .bear.left { left: calc(50% - 145px); transform-origin: bottom center; }
+    .bear.right {
+      --fur: #bd805f;
+      --muzzle: #e8b99c;
+      right: calc(50% - 145px);
+      animation-delay: -.8s;
+    }
+    .ear {
+      position: absolute;
+      width: 53px;
+      height: 53px;
+      top: -17px;
+      border-radius: 50%;
+      background: var(--fur);
+      box-shadow: inset 0 0 0 8px rgba(80,35,35,.055);
+    }
+    .ear.one { left: 7px; }
+    .ear.two { right: 7px; }
+    .ear::after {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      background: var(--muzzle);
+      opacity: .8;
+    }
+    .face {
+      position: absolute;
+      left: 0; right: 0; top: 57px;
+      height: 68px;
+    }
+    .eye {
+      position: absolute;
+      top: 3px;
+      width: 8px; height: 11px;
+      border-radius: 50%;
+      background: #38202a;
+    }
+    .eye.one { left: 43px; }
+    .eye.two { right: 43px; }
+    .snout {
+      position: absolute;
+      width: 48px; height: 34px;
+      left: 50%; top: 20px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--muzzle);
+    }
+    .nose {
+      position: absolute;
+      width: 12px; height: 8px;
+      top: 7px; left: 50%; transform: translateX(-50%);
+      border-radius: 50%; background: #49303a;
+    }
+    .smile {
+      position: absolute;
+      width: 15px; height: 8px;
+      left: 50%; top: 14px; transform: translateX(-50%);
+      border-bottom: 2px solid #49303a;
+      border-radius: 0 0 50% 50%;
+    }
+    .blush {
+      position: absolute; top: 27px;
+      width: 17px; height: 9px;
+      border-radius: 50%; background: #f69caf; opacity: .7;
+    }
+    .blush.one { left: 23px; } .blush.two { right: 23px; }
+    .belly {
+      position: absolute; bottom: 9px; left: 50%; transform: translateX(-50%);
+      width: 82px; height: 67px; border-radius: 48%; background: var(--muzzle); opacity: .75;
+    }
+    .arm {
+      position: absolute; z-index: -1; top: 91px;
+      width: 65px; height: 31px; border-radius: 30px;
+      background: var(--fur);
+    }
+    .arm.left-arm { left: -29px; transform: rotate(28deg); }
+    .arm.right-arm { right: -29px; transform: rotate(-28deg); }
+    .heart-between {
+      position: absolute; z-index: 3; left: 50%; top: 42px;
+      transform: translateX(-50%);
+      font-size: 38px;
+      animation: heart-beat 1.5s ease-in-out infinite;
+      filter: drop-shadow(0 0 12px #ff82a5aa);
+    }
+    @keyframes bear-bob { 0%,100% { translate: 0 0; } 50% { translate: 0 -8px; } }
+    @keyframes heart-beat { 0%,100% { scale: 1; } 50% { scale: 1.2; } }
+
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 18px; }
+    .scroll-note { margin-top: 42px; color: #e9b7c7; font-size: .78rem; letter-spacing: .12em; }
+    .scroll-note span { display: block; font-size: 1.2rem; margin-top: 8px; animation: nudge 1.5s infinite; }
+    @keyframes nudge { 50% { transform: translateY(6px); } }
+
+    .section { width: min(900px, calc(100% - 32px)); margin: 0 auto; padding: 55px 0; }
+    .glass-card {
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      padding: clamp(24px, 5vw, 42px);
+      text-align: center;
+      background: linear-gradient(145deg, rgba(255,255,255,.13), rgba(255,255,255,.055));
+      box-shadow: 0 18px 50px rgba(15,3,12,.18);
+      backdrop-filter: blur(12px);
+    }
+    .eyebrow { color: #ffb7ca; text-transform: uppercase; letter-spacing: .22em; font-size: .72rem; }
+    .section h3 {
+      margin: 12px 0 15px;
+      font: 600 clamp(2rem, 6vw, 3.2rem)/1.15 'Playfair Display', Georgia, serif;
+      color: #fff0f4;
+    }
+    .story { max-width: 650px; margin: 0 auto; color: #f6dce5; line-height: 1.9; }
+    .little-line { color: #ffb7ca; margin-top: 22px; font: italic 1.05rem 'Playfair Display', Georgia, serif; }
+
+    .letter-card { max-width: 700px; margin: 0 auto; }
+    .letter-content {
+      display: none;
+      margin-top: 22px;
+      padding: 25px;
+      border-radius: 18px;
+      color: var(--ink);
+      background: linear-gradient(145deg, #fff8f3, #ffe1e9);
+      text-align: left;
+      line-height: 1.9;
+      animation: rise-in .65s both;
+    }
+    .letter-content.open { display: block; }
+    .letter-content h4 { margin: 0 0 12px; font: 600 1.6rem 'Playfair Display', Georgia, serif; }
+    .letter-content p { margin: 0 0 13px; }
+    .signature { text-align: right; color: #a43f62; font: italic 1.2rem 'Playfair Display', Georgia, serif; }
+
+    .promise-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 25px; }
+    .promise {
+      min-height: 128px; display: grid; place-content: center; gap: 9px;
+      border: 1px solid var(--line); border-radius: 18px;
+      padding: 18px 12px; background: rgba(255,255,255,.07);
+      color: #ffe9ef;
+    }
+    .promise b { font-size: 1.7rem; }
+    .promise span { font-size: .9rem; }
+
+    .final-note { padding-bottom: 80px; }
+    .final-heart { font-size: 48px; animation: heart-beat 1.5s infinite; }
+    footer { text-align: center; padding: 10px 20px 35px; color: #d9a8b9; font-size: .8rem; }
+
+    .float-item {
+      position: absolute;
+      bottom: -40px;
+      opacity: 0;
+      animation: float-up linear forwards;
+      text-shadow: 0 0 12px #ffb5ca66;
+    }
+    @keyframes float-up {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      12% { opacity: .85; }
+      100% { transform: translateY(-115vh) rotate(35deg); opacity: 0; }
+    }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 540px) {
+      .bear-scene { transform: scale(.82); transform-origin: center; margin: 5px auto; height: 240px; }
+      .promise-grid { grid-template-columns: 1fr; }
+      .promise { min-height: 90px; }
+      .hero { padding-top: 48px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="float-layer" id="floatLayer" aria-hidden="true"></div>
+
+  <section class="intro" id="intro">
+    <div class="intro-card">
+      <div class="intro-kicker">A tiny surprise, made with love</div>
+      <h1>For My<br>Favourite Person</h1>
+      <p>A little page for a very special day.<br>Ready to open your surprise?</p>
+      <button class="btn" id="startBtn">Open your surprise 💌</button>
+    </div>
+  </section>
+
+  <main id="main">
+    <header class="hero">
+      <div class="date-pill">✦ &nbsp; 20 November 2026 &nbsp; ✦</div>
+      <h2>Happy <span>Anniversary</span> ❤️</h2>
+      <p class="tagline">One year of us. A thousand little reasons to smile.</p>
+
+      <div class="bear-scene" role="img" aria-label="Two original cute cartoon bears cuddling with a heart between them">
+        <div class="bear left">
+          <i class="ear one"></i><i class="ear two"></i>
+          <i class="arm left-arm"></i><i class="arm right-arm"></i>
+          <div class="face"><i class="eye one"></i><i class="eye two"></i><i class="blush one"></i><i class="blush two"></i><i class="snout"><i class="nose"></i><i class="smile"></i></i></div>
+          <i class="belly"></i>
+        </div>
+        <div class="bear right">
+          <i class="ear one"></i><i class="ear two"></i>
+          <i class="arm left-arm"></i><i class="arm right-arm"></i>
+          <div class="face"><i class="eye one"></i><i class="eye two"></i><i class="blush one"></i><i class="blush two"></i><i class="snout"><i class="nose"></i><i class="smile"></i></i></div>
+          <i class="belly"></i>
+        </div>
+        <div class="heart-between">💗</div>
+      </div>
+
+      <p class="tagline">Different little moments, one beautiful story.</p>
+      <div class="hero-actions">
+        <button class="btn" onclick="showLetter()">Read my letter 💌</button>
+        <button class="btn secondary" onclick="showerHearts()">Send some love ✨</button>
+      </div>
+      <div class="scroll-note">THERE'S MORE BELOW <span>↓</span></div>
+    </header>
+
+    <section class="section">
+      <div class="glass-card">
+        <div class="eyebrow">Our little story</div>
+        <h3>One year, countless memories</h3>
+        <p class="story">
+          A whole year of conversations, laughter, little surprises and moments
+          that became special just because we shared them. Not every day has to
+          be perfect to make a story beautiful. What matters is the care,
+          patience and happiness we keep bringing into it.
+        </p>
+        <div class="little-line">And this is only one chapter of our story. 🌷</div>
+      </div>
+    </section>
+
+    <section class="section" id="letterSection">
+      <div class="glass-card letter-card">
+        <div class="eyebrow">A letter from my heart</div>
+        <h3>A little note for you</h3>
+        <p class="story">Tap the envelope and open the words I saved for you.</p>
+        <button class="btn" id="letterBtn" onclick="showLetter()">Open the letter 💌</button>
+        <article class="letter-content" id="letter">
+          <h4>To my favourite person, ❤️</h4>
+          <p>Happy Anniversary!</p>
+          <p>
+            One year ago, a beautiful chapter of my life began. Since then,
+            so many little moments have become memories I treasure. Thank you
+            for the smiles, the conversations, the care and for being part of
+            this journey.
+          </p>
+          <p>
+            I don't need every moment to be perfect. I just hope we keep
+            understanding each other, cheering each other on and making more
+            lovely memories together.
+          </p>
+          <p><strong>I love you, today and always. ❤️</strong></p>
+          <p class="signature">— Yours, with love 🌹</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="glass-card">
+        <div class="eyebrow">Little things that matter</div>
+        <h3>My wishes for us</h3>
+        <div class="promise-grid">
+          <div class="promise"><b>🫶</b><span>More understanding</span></div>
+          <div class="promise"><b>🌻</b><span>More reasons to smile</span></div>
+          <div class="promise"><b>✨</b><span>More beautiful memories</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section final-note">
+      <div class="glass-card">
+        <div class="final-heart">❤️</div>
+        <div class="eyebrow">One last thing</div>
+        <h3>You're my favourite hello</h3>
+        <p class="story">Thank you for being part of my story.<br>Happy Anniversary, my love.</p>
+        <button class="btn" onclick="finalSurprise()">One last surprise ✨</button>
+        <p id="finalMessage" class="little-line" hidden>Here's to another year of laughter, kindness and choosing each other. 💗</p>
+      </div>
+    </section>
+
+    <footer>Made with lots of love, just for you. ❤️</footer>
+  </main>
+
+  <script>
+    const intro = document.getElementById('intro');
+    const main = document.getElementById('main');
+    const floatLayer = document.getElementById('floatLayer');
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+      intro.classList.add('hide');
+      main.classList.add('ready');
+      showerHearts(22);
+    });
+
+    function showLetter() {
+      const letter = document.getElementById('letter');
+      letter.classList.toggle('open');
+      document.getElementById('letterBtn').textContent =
+        letter.classList.contains('open') ? 'Close the letter 💗' : 'Open the letter 💌';
+      if (letter.classList.contains('open')) {
+        document.getElementById('letterSection').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        showerHearts(12);
+      }
+    }
+
+    function createFloatItem() {
+      const symbols = ['♡', '♥', '💕', '✨', '🌸'];
+      const item = document.createElement('span');
+      item.className = 'float-item';
+      item.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      item.style.left = Math.random() * 100 + 'vw';
+      item.style.fontSize = (15 + Math.random() * 22) + 'px';
+      item.style.animationDuration = (6 + Math.random() * 6) + 's';
+      floatLayer.appendChild(item);
+      window.setTimeout(() => item.remove(), 12500);
+    }
+
+    window.setInterval(createFloatItem, 650);
+
+    function showerHearts(amount = 28) {
+      for (let i = 0; i < amount; i++) {
+        window.setTimeout(createFloatItem, i * 75);
+      }
+    }
+
+    function finalSurprise() {
+      const message = document.getElementById('finalMessage');
+      message.hidden = false;
+      showerHearts(45);
+    }
+  </script>
+</body>
+</html>
